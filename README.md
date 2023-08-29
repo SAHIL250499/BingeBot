@@ -32,6 +32,8 @@
 - Built Movie Card
 - Made Browse page amazing with Tailwind CSS
 - usePopularMovies Custom Hooks
+- GPT Search Feature
+- (Feature) Multi-language Feature in the App
 
 #Features
 
