@@ -5,6 +5,16 @@
 - Header
 - Login form
 - Sign up form
+- Form Validation
+- UseRef hook
+- firebase SetUp
+- Deploying to firebase
+- Create Signup User Account
+- Implement Sign In user Api
+- Craeted Redux Store with userSlice
+- Implemented Sign out
+- Update Profile
+- Fetch movies from TMDB
 
 #Features
 
