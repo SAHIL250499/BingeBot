@@ -1,3 +1,7 @@
+#Deployed on Netlify
+
+https://netflix-gpt-react.netlify.app/
+
 #Netflix GPT
 
 - Create React App
