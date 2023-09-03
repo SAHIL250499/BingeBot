@@ -15,11 +15,12 @@ const SecondaryContainer = () => {
        * MovieList -Horror Movies
        *
        */}
-      <div className="-mt-52 relative z-20">
+      <div className="mt-0 md:-mt-52 pl-4 md:pl-16 relative z-20">
         <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
-        <MovieList title={"Trending"} movies={movies.nowPlayingMovies} />
         <MovieList title={"Popular"} movies={movies.popularMovies} />
-        <MovieList title={"Horror Movies"} movies={movies.nowPlayingMovies} />
+        <MovieList title={"Action"} movies={movies.actionMovies} />
+
+        <MovieList title={"Top Rated"} movies={movies.horrorMovies} />
       </div>
     </div>
   );

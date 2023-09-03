@@ -58,10 +58,16 @@ const Header = () => {
   };
 
   return (
-    <div className="absolute w-full px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
-      <img className="w-44 " src={LOGO} alt="logo" />
+    <div className="absolute w-full px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between ">
+      <img className="w-44 mx-auto md:mx-0 " src={LOGO} alt="logo" />
+      <button
+        onClick={handleGptSearchClick}
+        className="py-2 px-4 mx-4 my-2 bg-red-500 text-white rounded-lg"
+      >
+        {showGptSearch ? "Home Page" : "GPT Search"}
+      </button>
       {user && (
-        <div className="flex p-2">
+        <div className="flex p-2 justify-between">
           {showGptSearch && (
             <select
               className="p-2 m-2 bg-gray-900 text-white"
@@ -75,14 +81,16 @@ const Header = () => {
             </select>
           )}
 
+          <img
+            className="hidden md:block w-12 h-12 mr-10"
+            alt="usericon"
+            src={user?.photoURL}
+          />
+
           <button
-            onClick={handleGptSearchClick}
-            className="py-2 px-4 mx-4 my-2 bg-red-500 text-white rounded-lg"
+            onClick={handleSignOut}
+            className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
           >
-            {showGptSearch ? "Home Page" : "GPT Search"}
-          </button>
-          <img className="w-12 h-12" alt="usericon" src={user?.photoURL} />
-          <button onClick={handleSignOut} className="font-bold text-white">
             Sign Out
           </button>
         </div>

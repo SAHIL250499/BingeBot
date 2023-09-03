@@ -34,6 +34,14 @@
 - usePopularMovies Custom Hooks
 - GPT Search Feature
 - (Feature) Multi-language Feature in the App
+- Get Open Ai Api key
+- fetched gptMovieSuggestion from Tmdb
+- created gptslice added data
+- Reused MovieList component to make movie suggestion container
+- Memoization
+- Added .env file
+- Adding .env file to .gitignore
+- Made responsive for mobile
 
 #Features
 
