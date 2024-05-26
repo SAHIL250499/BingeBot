@@ -1,4 +1,4 @@
-import image from "../asset/BingeBot (2).png"
+import image from "../asset/BingeBot__3_-removebg-preview.png"
 
 export const LOGO =image;
 
