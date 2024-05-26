@@ -98,9 +98,9 @@ const Login = () => {
   return (
     <div>
       <Header />
-      <div className="absolute">
+      <div className="absolute top-0 bottom-0 left-0 right-0">
         <img
-          className="h-screen object-cover md:h-full"
+          className="h-full w-full object-cover md:h-full"
           src={BG_IMG}
           alt="bg-img"
         />
@@ -144,7 +144,12 @@ const Login = () => {
         </button>
         <p className="py-4 cursor-pointer" onClick={toggleSignInForm}>
           {isSignInForm
-            ? "New to BingeBot ? Sign Up Now."
+            ? (<div>
+              New to BingeBot ? Sign Up Now.
+              <div className="pt-4">
+                <span>email: test1@gmail.com && password: Boogeyman1902@01</span>
+              </div>
+            </div>)
             : "Already registered ? Sign In Now."}
         </p>
       </form>

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import lang from "../utils/languageConstants";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import openai from "../utils/openai";
 import { API_OPTIONS } from "../utils/constants";
 import { addGptMovieResult } from "../utils/gptSlice";
@@ -8,6 +8,7 @@ import { addGptMovieResult } from "../utils/gptSlice";
 const GptSearchBar = () => {
   const dispatch = useDispatch();
   const langkey = useSelector((store) => store.config.lang);
+  const [error,SetError] = useState('');
 
   const searchText = useRef(null);
 
@@ -26,6 +27,7 @@ const GptSearchBar = () => {
   };
 
   const handleGptSearchClick = async () => {
+    try{
     const gptQuery =
       "Act as a Movie Recommendation system and suggest some movies for the query : " +
       searchText.current.value +
@@ -34,7 +36,8 @@ const GptSearchBar = () => {
     const gptResults = await openai.chat.completions.create({
       messages: [{ role: "user", content: gptQuery }],
       model: "gpt-3.5-turbo",
-    });
+    })
+
     if (!gptResults.choices) {
       console.log("GPT error");
     }
@@ -49,10 +52,14 @@ const GptSearchBar = () => {
     dispatch(
       addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults })
     );
+  }
+  catch(err){
+    SetError(err.message);
+  }
   };
 
   return (
-    <div className="pt-[60%] md:pt-[10%] flex justify-center">
+    <div className="flex flex-col pt-[60%] md:pt-[10%] items-center">
       <form
         onSubmit={(e) => e.preventDefault()}
         className="w-full md:w-1/2  bg-black grid grid-cols-12"
@@ -70,6 +77,7 @@ const GptSearchBar = () => {
           {lang[langkey].search}
         </button>
       </form>
+      {error && (<div className="w-full md:w-1/2 text-red-600 font-bold backdrop-blur text-xl">{error}</div>)}
     </div>
   );
 };
