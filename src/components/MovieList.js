@@ -6,9 +6,7 @@ import "swiper/css";
 
 const MovieList = ({ title, movies }) => {
   if (!movies) return null;
-
-  console.log(movies);
-
+  
   const SwiperButtonNext = () => {
     const swiper = useSwiper();
     return (

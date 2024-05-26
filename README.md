@@ -66,4 +66,3 @@ https://netflix-gpt-react.netlify.app/
   - Search Bar
   - Movie Suggestion
 
-  ![Screenshot](image.png)
