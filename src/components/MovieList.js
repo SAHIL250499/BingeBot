@@ -61,6 +61,7 @@ const MovieList = ({ title, movies }) => {
 
         <div>
           {movies.map((movie) => (
+            
             <SwiperSlide key={movie.id}>
               <MovieCard key={movie.id} posterPath={movie.poster_path} />
             </SwiperSlide>

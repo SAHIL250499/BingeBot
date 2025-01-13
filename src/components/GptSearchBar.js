@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import lang from "../utils/languageConstants";
 import { useRef, useState } from "react";
-import openai from "../utils/openai";
+import groq from "../utils/openai";
 import { API_OPTIONS } from "../utils/constants";
 import { addGptMovieResult } from "../utils/gptSlice";
+import { generateText } from 'ai';
 
 const GptSearchBar = () => {
   const dispatch = useDispatch();
@@ -22,41 +23,42 @@ const GptSearchBar = () => {
       API_OPTIONS
     );
     const json = await data.json();
+    console.log(json);
 
     return json.results;
   };
-
+  
+  
   const handleGptSearchClick = async () => {
-    try{
-    const gptQuery =
-      "Act as a Movie Recommendation system and suggest some movies for the query : " +
-      searchText.current.value +
-      ". only give me names of 5 movies, comma separated like the example result given ahead.Example Result: Gadar 2,Sholay,Don,Hera Pheri,Welcome";
+    try {
+      const gptQuery = `Act as a Movie Recommendation system and suggest some movies for the query : " ${searchText.current.value}". Only give me names of 5 movies which will be comma separated.`;
+      
 
-    const gptResults = await openai.chat.completions.create({
-      messages: [{ role: "user", content: gptQuery }],
-      model: "gpt-3.5-turbo",
-    })
+      const { text } = await generateText({
+        model: groq('llama-3.3-70b-versatile'),
+        prompt: gptQuery,
+      });
 
-    if (!gptResults.choices) {
-      console.log("GPT error");
+      const gptMovies = text.split(",");
+
+      //For each movie search in TMDB API
+
+      const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
+      //[Promise,Promise,Promise,Promise]
+
+      const tmdbResults = await Promise.all(promiseArray);
+      dispatch(
+        addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults })
+      );
+
+
+
+    } catch (err) {
+      SetError(err.message); // Display error in UI
     }
-    const gptMovies = gptResults.choices?.[0]?.message?.content.split(",");
-
-    //For each movie search in TMDB API
-
-    const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
-    //[Promise,Promise,Promise,Promise]
-
-    const tmdbResults = await Promise.all(promiseArray);
-    dispatch(
-      addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults })
-    );
-  }
-  catch(err){
-    SetError(err.message);
-  }
   };
+
+  
 
   return (
     <div className="flex flex-col pt-[60%] md:pt-[10%] items-center">
