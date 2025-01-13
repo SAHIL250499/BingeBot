@@ -51,9 +51,8 @@ const GptSearchBar = () => {
         addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults })
       );
 
-
-
     } catch (err) {
+      console.log(err.message);
       SetError(err.message); // Display error in UI
     }
   };
