@@ -1,6 +1,6 @@
 #Deployed on Netlify
 
-https://netflix-gpt-react.netlify.app/
+https://bingebot.onrender.com/
 
 #Netflix GPT
 
